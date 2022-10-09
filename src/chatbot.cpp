@@ -45,6 +45,59 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+ChatBot::ChatBot(const ChatBot &source) // 2 : copy constructor // TODO Refine
+{
+    // set up for a shallow copy, passing the pointers to the new instance
+    std::cout << "Copy Constructor; COPYING content of instance " << &source << " to instance " << this << std::endl;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+}
+
+ChatBot &ChatBot::operator=(const ChatBot &source) // 3 : copy assignment operator // TODO Refine
+{
+    std::cout << "Copy Assignment Operator; ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
+    // set up for a shallow copy, passing the pointers to the new instance
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&source) // 4 : move constructor
+{
+    // set up for a shallow copy, passing the pointers to the new instance
+    std::cout << "Move Constructor; MOVING (constructor) instance " << &source << " to instance " << this << std::endl;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    source._image = NULL;
+}
+
+ChatBot &ChatBot::operator=(ChatBot &&source) // 5 : move assignment operator
+{
+    std::cout << "Move Assignment Operator; MOVING (assign) instance " << &source << " to instance " << this << std::endl;
+    if (this == &source)
+    {
+        std::cout << "this==&source" << std::endl;
+        return *this;
+    }
+
+    // set up for a shallow copy, passing the pointers to the new instance
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    source._image = NULL;
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
