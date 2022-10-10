@@ -11,8 +11,6 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete &_chatBot; 
-
     ////
     //// EOF STUDENT CODE
 }
@@ -43,7 +41,7 @@ void GraphNode::MoveChatbotHere(ChatBot chatbot)
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(_chatBot);
+    newNode->MoveChatbotHere(std::move(_chatBot));
 }
 ////
 //// EOF STUDENT CODE

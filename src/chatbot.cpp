@@ -45,21 +45,23 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
-ChatBot::ChatBot(const ChatBot &source) // 2 : copy constructor // TODO Refine
+ChatBot::ChatBot(const ChatBot &source) // 2 : copy constructor
 {
-    // set up for a shallow copy, passing the pointers to the new instance
+    // Deep copy
     std::cout << "Copy Constructor; COPYING content of instance " << &source << " to instance " << this << std::endl;
-    _image = source._image;
+    _image = new wxBitmap();
+    *_image = *source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
 }
 
-ChatBot &ChatBot::operator=(const ChatBot &source) // 3 : copy assignment operator // TODO Refine
+ChatBot &ChatBot::operator=(const ChatBot &source) // 3 : copy assignment operator
 {
     std::cout << "Copy Assignment Operator; ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
-    // set up for a shallow copy, passing the pointers to the new instance
-    _image = source._image;
+    // Deep copy
+    _image = new wxBitmap();
+    *_image = *source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
@@ -76,6 +78,9 @@ ChatBot::ChatBot(ChatBot &&source) // 4 : move constructor
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
     source._image = NULL;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
 }
 
 ChatBot &ChatBot::operator=(ChatBot &&source) // 5 : move assignment operator
@@ -94,6 +99,9 @@ ChatBot &ChatBot::operator=(ChatBot &&source) // 5 : move assignment operator
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
     source._image = NULL;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
 
     return *this;
 }
